@@ -1,0 +1,25 @@
+APLICACION_RENDER_FINAL
+
+ORDEN:
+1. GUIA_01_CHECKLIST_PREVIO_RENDER.docx
+2. GUIA_02_CAMBIOS_DOCKER_A_RENDER_EXPLICADOS.docx
+3. GUIA_03_DESPLIEGUE_RENDER_COMPLETO.docx
+
+ATAJO PARA VERIFICAR EL EQUIPO:
+PowerShell dentro de esta carpeta:
+  .\scripts\00_verificar_requisitos.ps1
+
+GENERAR render.yaml CON PREFIJO ÚNICO:
+  .\scripts\configurar-render.ps1 -Prefijo nombreunico
+  .\scripts\01_validar_estructura.ps1
+
+PRUEBA LOCAL DEL PERFIL RENDER:
+  .\scripts\02_probar_render_local.ps1
+
+DETENER PRUEBA LOCAL:
+  .\scripts\03_detener_render_local.ps1
+
+IMPORTANTE:
+- Render Free suspende servicios inactivos. La primera respuesta puede demorar.
+- H2 es temporal: pierde los datos cuando un servicio se reinicia.
+- Para la clase, primero asegure una demostración mínima con cliente-service si el despliegue completo tarda demasiado.

@@ -1,0 +1,94 @@
+﻿# Render Blueprint educativo (Free): 6 Web Services pÃºblicos.
+# Reemplazar humboldt por un identificador corto y Ãºnico.
+# Eureka se conserva para Docker local, pero se desactiva en Render Free.
+services:
+  - type: web
+    name: humboldt-fullstack-cliente
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/cliente-service.Dockerfile
+    dockerContext: .
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: EUREKA_ENABLED
+        value: false
+
+  - type: web
+    name: humboldt-fullstack-producto
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/producto-service.Dockerfile
+    dockerContext: .
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: EUREKA_ENABLED
+        value: false
+
+  - type: web
+    name: humboldt-fullstack-pedido
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/pedido-service.Dockerfile
+    dockerContext: .
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: EUREKA_ENABLED
+        value: false
+      - key: APP_DISCOVERY_ENABLED
+        value: false
+      - key: CLIENTE_SERVICE_URL
+        value: https://humboldt-fullstack-cliente.onrender.com
+      - key: PRODUCTO_SERVICE_URL
+        value: https://humboldt-fullstack-producto.onrender.com
+
+  - type: web
+    name: humboldt-fullstack-pago
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/pago-service.Dockerfile
+    dockerContext: .
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: EUREKA_ENABLED
+        value: false
+      - key: APP_DISCOVERY_ENABLED
+        value: false
+      - key: PEDIDO_SERVICE_URL
+        value: https://humboldt-fullstack-pedido.onrender.com
+
+  - type: web
+    name: humboldt-fullstack-despacho
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/despacho-service.Dockerfile
+    dockerContext: .
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: EUREKA_ENABLED
+        value: false
+      - key: APP_DISCOVERY_ENABLED
+        value: false
+      - key: PEDIDO_SERVICE_URL
+        value: https://humboldt-fullstack-pedido.onrender.com
+
+  - type: web
+    name: humboldt-fullstack-gateway
+    runtime: docker
+    plan: free
+    dockerfilePath: ./render/docker/api-gateway.Dockerfile
+    dockerContext: .
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: EUREKA_ENABLED
+        value: false
+      - key: CLIENTE_SERVICE_URL
+        value: https://humboldt-fullstack-cliente.onrender.com
+      - key: PRODUCTO_SERVICE_URL
+        value: https://humboldt-fullstack-producto.onrender.com
+      - key: PEDIDO_SERVICE_URL
+        value: https://humboldt-fullstack-pedido.onrender.com
+      - key: PAGO_SERVICE_URL
+        value: https://humboldt-fullstack-pago.onrender.com
+      - key: DESPACHO_SERVICE_URL
+        value: https://humboldt-fullstack-despacho.onrender.com
+
